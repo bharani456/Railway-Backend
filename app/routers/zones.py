@@ -26,7 +26,7 @@ async def get_zones(
     search: Optional[str] = Query(None, description="Search term"),
     status: Optional[str] = Query(None, description="Filter by status"),
     sortBy: Optional[str] = Query("name", description="Sort field"),
-    sortOrder: str = Query("asc", regex="^(asc|desc)$", description="Sort order"),
+    sortOrder: str = Query("asc", pattern="^(asc|desc)$", description="Sort order"),
     current_user: dict = Depends(verify_token)
 ):
     """

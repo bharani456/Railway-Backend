@@ -26,7 +26,7 @@ async def get_stations(
     divisionId: Optional[str] = Query(None),
     status: Optional[str] = Query(None),
     sortBy: Optional[str] = Query("name"),
-    sortOrder: str = Query("asc", regex="^(asc|desc)$"),
+    sortOrder: str = Query("asc", pattern="^(asc|desc)$"),
     current_user: dict = Depends(verify_token)
 ):
     """Get stations with pagination and filters"""

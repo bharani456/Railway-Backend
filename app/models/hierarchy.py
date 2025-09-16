@@ -57,7 +57,7 @@ class ZoneResponse(ZoneBase):
     stationCount: Optional[int] = 0
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -111,7 +111,7 @@ class DivisionResponse(DivisionBase):
     stationCount: Optional[int] = 0
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -167,7 +167,7 @@ class StationResponse(StationBase):
     zone: Optional[ZoneResponse] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -186,7 +186,7 @@ class ZoneListParams(BaseModel):
     search: Optional[str] = None
     status: Optional[str] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
 
 class DivisionListParams(BaseModel):
     """Division list parameters"""
@@ -197,7 +197,7 @@ class DivisionListParams(BaseModel):
     zoneId: Optional[PyObjectId] = None
     status: Optional[str] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
 
 class StationListParams(BaseModel):
     """Station list parameters"""
@@ -209,4 +209,31 @@ class StationListParams(BaseModel):
     divisionId: Optional[PyObjectId] = None
     status: Optional[str] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
+
+class ZoneStats(BaseModel):
+    """Zone statistics model"""
+    
+    totalZones: int
+    activeZones: int
+    inactiveZones: int
+    zonesByRegion: dict
+    averageDivisionsPerZone: float
+
+class DivisionStats(BaseModel):
+    """Division statistics model"""
+    
+    totalDivisions: int
+    activeDivisions: int
+    inactiveDivisions: int
+    divisionsByZone: dict
+    averageStationsPerDivision: float
+
+class StationStats(BaseModel):
+    """Station statistics model"""
+    
+    totalStations: int
+    activeStations: int
+    inactiveStations: int
+    stationsByDivision: dict
+    stationsByType: dict

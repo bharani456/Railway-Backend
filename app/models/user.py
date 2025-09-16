@@ -78,7 +78,7 @@ class UserResponse(UserBase):
     status: str
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -114,7 +114,7 @@ class UserSessionResponse(UserSession):
     createdAt: datetime
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -139,7 +139,7 @@ class UserListParams(BaseModel):
     divisionId: Optional[PyObjectId] = None
     stationId: Optional[PyObjectId] = None
     sortBy: Optional[str] = Field("createdAt")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class UserStats(BaseModel):
     """User statistics model"""

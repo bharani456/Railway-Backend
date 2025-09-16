@@ -76,7 +76,7 @@ class VendorResponse(VendorBase):
     status: str
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -148,7 +148,7 @@ class ManufacturerResponse(ManufacturerBase):
     status: str
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -163,7 +163,7 @@ class VendorListParams(BaseModel):
     state: Optional[str] = None
     isVerified: Optional[bool] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
 
 class ManufacturerListParams(BaseModel):
     """Manufacturer list parameters"""
@@ -176,7 +176,7 @@ class ManufacturerListParams(BaseModel):
     state: Optional[str] = None
     isVerified: Optional[bool] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
 
 class VendorStats(BaseModel):
     """Vendor statistics model"""

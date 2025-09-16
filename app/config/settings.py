@@ -102,6 +102,9 @@ def get_database_url() -> str:
     settings = get_settings()
     if settings.MONGODB_URL.startswith("mongodb+srv://"):
         return settings.MONGODB_URL
+    # If URL already contains query parameters, don't append database name
+    if '?' in settings.MONGODB_URL:
+        return settings.MONGODB_URL
     return f"{settings.MONGODB_URL}/{settings.MONGODB_DATABASE}"
 
 def get_redis_url() -> str:

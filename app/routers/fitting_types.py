@@ -27,7 +27,7 @@ async def get_fitting_types(
     status: Optional[str] = Query(None),
     isActive: Optional[bool] = Query(None),
     sortBy: Optional[str] = Query("name"),
-    sortOrder: str = Query("asc", regex="^(asc|desc)$"),
+    sortOrder: str = Query("asc", pattern="^(asc|desc)$"),
     current_user: dict = Depends(verify_token)
 ):
     """Get fitting types with pagination and filters"""

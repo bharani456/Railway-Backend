@@ -13,7 +13,7 @@ class InspectionChecklist(BaseModel):
     """Inspection checklist model"""
     
     item: str = Field(..., max_length=200)
-    status: str = Field(..., regex="^(pass|fail|na)$")
+    status: str = Field(..., pattern="^(pass|fail|na)$")
     remarks: Optional[str] = None
     value: Optional[float] = None
     unit: Optional[str] = None
@@ -68,7 +68,7 @@ class InspectionResponse(InspectionBase):
     inspector: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -126,7 +126,7 @@ class MaintenanceRecordResponse(MaintenanceRecordBase):
     qualityChecker: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -141,7 +141,7 @@ class InspectionListParams(BaseModel):
     status: Optional[str] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("inspectionDate")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class MaintenanceRecordListParams(BaseModel):
     """Maintenance record list parameters"""
@@ -154,7 +154,7 @@ class MaintenanceRecordListParams(BaseModel):
     status: Optional[str] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("maintenanceDate")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class InspectionStats(BaseModel):
     """Inspection statistics model"""

@@ -12,8 +12,9 @@ class PyObjectId(ObjectId):
     """Custom ObjectId type for Pydantic"""
     
     @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
+    def __get_pydantic_core_schema__(cls, _source_type, _handler):
+        from pydantic_core import core_schema
+        return core_schema.no_info_plain_validator_function(cls.validate)
     
     @classmethod
     def validate(cls, v):
@@ -22,8 +23,8 @@ class PyObjectId(ObjectId):
         return ObjectId(v)
     
     @classmethod
-    def __modify_schema__(cls, field_schema):
-        field_schema.update(type="string")
+    def __get_pydantic_json_schema__(cls, _core_schema, handler):
+        return {"type": "string"}
 
 class BaseDocument(BaseModel):
     """Base document model with common fields"""
@@ -36,7 +37,7 @@ class BaseDocument(BaseModel):
     status: str = Field(default="active")
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -72,7 +73,7 @@ class PaginationParams(BaseModel):
     page: int = Field(1, ge=1, description="Page number")
     limit: int = Field(10, ge=1, le=100, description="Items per page")
     sort_by: Optional[str] = Field(None, description="Sort field")
-    sort_order: str = Field("desc", regex="^(asc|desc)$", description="Sort order")
+    sort_order: str = Field("desc", pattern="^(asc|desc)$", description="Sort order")
 
 class PaginatedResponse(BaseModel):
     """Paginated response model"""

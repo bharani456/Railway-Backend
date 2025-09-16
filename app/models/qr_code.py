@@ -60,7 +60,7 @@ class QRCodeResponse(QRCodeBase):
     lastInspection: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -123,7 +123,7 @@ class InstallationResponse(InstallationBase):
     installer: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -137,7 +137,7 @@ class QRCodeListParams(BaseModel):
     fittingBatchId: Optional[PyObjectId] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("generatedAt")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class InstallationListParams(BaseModel):
     """Installation list parameters"""
@@ -152,7 +152,7 @@ class InstallationListParams(BaseModel):
     trackSection: Optional[str] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("installationDate")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class QRCodeStats(BaseModel):
     """QR code statistics model"""

@@ -25,7 +25,7 @@ async def get_fitting_categories(
     status: Optional[str] = Query(None),
     isActive: Optional[bool] = Query(None),
     sortBy: Optional[str] = Query("name"),
-    sortOrder: str = Query("asc", regex="^(asc|desc)$"),
+    sortOrder: str = Query("asc", pattern="^(asc|desc)$"),
     current_user: dict = Depends(verify_token)
 ):
     """Get fitting categories with pagination and filters"""

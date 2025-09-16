@@ -73,7 +73,7 @@ class AIAnalysisReportResponse(AIAnalysisReportBase):
     qrCode: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -142,7 +142,7 @@ class AIAnalysisListParams(BaseModel):
     status: Optional[str] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("processedAt")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class BulkAnalysisRequest(BaseModel):
     """Bulk analysis request model"""

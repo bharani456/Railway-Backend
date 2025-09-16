@@ -27,7 +27,7 @@ async def get_manufacturers(
     state: Optional[str] = Query(None),
     isVerified: Optional[bool] = Query(None),
     sortBy: Optional[str] = Query("name"),
-    sortOrder: str = Query("asc", regex="^(asc|desc)$"),
+    sortOrder: str = Query("asc", pattern="^(asc|desc)$"),
     current_user: dict = Depends(verify_token)
 ):
     """Get manufacturers with pagination and filters"""

@@ -31,7 +31,7 @@ async def get_users(
     divisionId: Optional[str] = Query(None, description="Filter by division ID"),
     stationId: Optional[str] = Query(None, description="Filter by station ID"),
     sortBy: Optional[str] = Query("createdAt", description="Sort field"),
-    sortOrder: str = Query("desc", regex="^(asc|desc)$", description="Sort order"),
+    sortOrder: str = Query("desc", pattern="^(asc|desc)$", description="Sort order"),
     current_user: dict = Depends(verify_token)
 ):
     """

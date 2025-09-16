@@ -76,7 +76,7 @@ class FittingCategoryResponse(FittingCategoryBase):
     fittingTypeCount: Optional[int] = 0
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -138,7 +138,7 @@ class FittingTypeResponse(FittingTypeBase):
     manufacturer: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -151,7 +151,7 @@ class FittingCategoryListParams(BaseModel):
     status: Optional[str] = None
     isActive: Optional[bool] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
 
 class FittingTypeListParams(BaseModel):
     """Fitting type list parameters"""
@@ -164,7 +164,7 @@ class FittingTypeListParams(BaseModel):
     status: Optional[str] = None
     isActive: Optional[bool] = None
     sortBy: Optional[str] = Field("name")
-    sortOrder: str = Field("asc", regex="^(asc|desc)$")
+    sortOrder: str = Field("asc", pattern="^(asc|desc)$")
 
 class FittingCategoryStats(BaseModel):
     """Fitting category statistics model"""

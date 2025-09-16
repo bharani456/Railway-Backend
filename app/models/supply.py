@@ -71,7 +71,7 @@ class SupplyOrderResponse(SupplyOrderBase):
     manufacturer: Optional[Dict[str, Any]] = None
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -124,7 +124,7 @@ class FittingBatchResponse(FittingBatchBase):
     qrCodeCount: Optional[int] = 0
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 
@@ -139,7 +139,7 @@ class SupplyOrderListParams(BaseModel):
     manufacturerId: Optional[PyObjectId] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("orderDate")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class FittingBatchListParams(BaseModel):
     """Fitting batch list parameters"""
@@ -152,7 +152,7 @@ class FittingBatchListParams(BaseModel):
     manufacturerId: Optional[PyObjectId] = None
     dateRange: Optional[str] = None
     sortBy: Optional[str] = Field("manufacturingDate")
-    sortOrder: str = Field("desc", regex="^(asc|desc)$")
+    sortOrder: str = Field("desc", pattern="^(asc|desc)$")
 
 class SupplyOrderStats(BaseModel):
     """Supply order statistics model"""

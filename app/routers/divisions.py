@@ -25,7 +25,7 @@ async def get_divisions(
     zoneId: Optional[str] = Query(None),
     status: Optional[str] = Query(None),
     sortBy: Optional[str] = Query("name"),
-    sortOrder: str = Query("asc", regex="^(asc|desc)$"),
+    sortOrder: str = Query("asc", pattern="^(asc|desc)$"),
     current_user: dict = Depends(verify_token)
 ):
     """Get divisions with pagination and filters"""
